@@ -1,0 +1,45 @@
+/* General Body and Font */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Active menu: Gold bar */
+.active-link-style {
+    position: relative;
+}
+
+.active-link-style::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 100%;
+    background: #FFC400;
+    border-radius: 8px 0 0 8px;
+}
+
+/* Form input styling */
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #9ca3af; /* border-gray-400 */
+    border-radius: 8px;
+    font-size: 14px;
+    color: #374151; /* text-gray-700 */
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    /* Added border & highlight on focus */
+}
+
+/* Placeholder style = shows label inside input */
+.form-input::placeholder {
+    color: #6b7280; /* text-gray-500 */
+    font-size: 14px;
+}

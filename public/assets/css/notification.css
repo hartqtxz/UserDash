@@ -1,0 +1,240 @@
+/* ===================== GENERAL ===================== */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-content {
+    margin-left: 340px;
+    /* width of sidebar */
+    overflow-y: auto;
+    background-color: #E9EEF7;
+}
+
+
+/* ===================== HEADER ===================== */
+header {
+    height: 4rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-title h1 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.header-title p {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-info p:first-child {
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.user-info p:last-child {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: #fbcfe8;
+    border: 2px solid #f472b6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/* ===================== CONTENT ===================== */
+.content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+section h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.grid-header {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6b7280;
+    padding: 0.5rem 1.5rem;
+}
+
+.grid-header>div:nth-child(1) {
+    grid-column: span 4;
+}
+
+.grid-header>div:nth-child(2) {
+    grid-column: span 3;
+}
+
+.grid-header>div:nth-child(3) {
+    grid-column: span 1;
+    text-align: center;
+}
+
+.grid-header>div:nth-child(4),
+.grid-header>div:nth-child(5) {
+    grid-column: span 2;
+    text-align: center;
+}
+
+/* ===================== NOTIFICATION CARDS ===================== */
+.notif-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+    transition: box-shadow 0.2s;
+}
+
+.notif-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.company {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    grid-column: span 4;
+}
+
+.company img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+}
+
+.company div p:first-child {
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.company div p:last-child {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.job-notice {
+    font-size: 0.875rem;
+    font-weight: 500;
+    grid-column: span 3;
+}
+
+.applicants {
+    grid-column: span 1;
+    text-align: center;
+    font-weight: 500;
+    color: #2563eb;
+}
+
+.status {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+.status-new {
+    background-color: #22c55e;
+}
+
+.status-message {
+    background-color: #3b82f6;
+}
+
+.actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    font-size: 0.6875rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.action-btn.view,
+.action-btn.reply {
+    background-color: #3b82f6;
+}
+
+.action-btn.view:hover,
+.action-btn.reply:hover {
+    background-color: #2563eb;
+}
+
+.action-btn.delete,
+.action-btn.archive {
+    background-color: #ef4444;
+}
+
+.action-btn.delete:hover,
+.action-btn.archive:hover {
+    background-color: #dc2626;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #d1d5db;
+}

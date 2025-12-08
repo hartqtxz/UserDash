@@ -1,0 +1,193 @@
+/* ======= GENERAL ======= */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #dfe2ef;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #e6e8f5;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 20px auto;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ======= HEADER ======= */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 25px;
+  border-bottom: 2px solid #ccc;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.job-portal-logo {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.job-portal-text {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.welcome-text {
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.employer-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.employer-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ======= MAIN CONTENT ======= */
+.main-content {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.main-header {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* ======= APPLICANT SECTION ======= */
+.applicant-container {
+  display: flex;
+  justify-content: flex-start; /* align left */
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: nowrap; /* keep photo and info side-by-side */
+  text-align: left; /* make info left-aligned */
+}
+
+.photo-section {
+  flex: 0 0 220px; /* fixed width for photo area */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profile-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* ======= INFO SECTION ======= */
+.info-section {
+  flex: 1;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.info-box {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ======= BUTTONS ======= */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-reject {
+  background-color: #ff3b30;
+  color: white;
+}
+
+.btn-reject:hover {
+  background-color: #d32f2f;
+}
+
+.btn-accept {
+  background-color: #00e676;
+  color: black;
+}
+
+.btn-accept:hover {
+  background-color: #00c853;
+}
+
+.back-wrapper {
+  text-align: center;
+}
+
+.btn-go-back {
+  background-color: #00c853;
+  color: black;
+  padding: 10px 25px;
+}
+
+.btn-go-back:hover {
+  background-color: #009624;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 900px) {
+  .applicant-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

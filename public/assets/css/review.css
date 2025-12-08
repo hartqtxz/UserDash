@@ -1,0 +1,228 @@
+/* ================================
+   GLOBAL LAYOUT
+================================ */
+body {
+  display: flex;
+  margin: 0;
+  background-color: #dbe5f1;
+  font-family: Arial, sans-serif;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+  background-color: #0d47a1;
+  width: 280px;
+  height: 100vh;
+  padding: 25px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  color: white;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.dashboard-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.portal-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: white;
+}
+
+.sidebar-menu {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1565c0;
+  padding: 12px 16px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.nav-link.active {
+  background: white !important;
+  color: #0d47a1 !important;
+  font-weight: bold;
+  border-left: 5px solid #ffcc00;
+}
+
+/* ================================
+   MAIN CONTENT AREA
+================================ */
+.main-content {
+  margin-left: 280px;
+  padding: 20px 40px;
+  width: calc(100% - 280px);
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f0f3f8;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* ================================
+   APPLICANT INFORMATION
+================================ */
+.applicant-info {
+  background: #c6cee4;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 10px 20px;
+  width: 100%;
+}
+
+.applicant-photo {
+  grid-row: span 5;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.applicant-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.applicant-info label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.info {
+  background: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+
+/* ================================
+   REVIEW SECTION
+================================ */
+.review-section {
+  background: white;
+  padding: 20px 25px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.review-section h3 {
+  color: #004080;
+  font-size: 18px;
+  border-bottom: 2px solid #004080;
+  padding-bottom: 6px;
+  margin-bottom: 15px;
+}
+
+/* ================================
+   STAR RATING
+================================ */
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 15px;
+}
+
+.star {
+  font-size: 26px;
+  color: #ffd700;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.star.gray {
+  color: #ccc;
+}
+
+/* ================================
+   TEXTAREA
+================================ */
+textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 15px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* ================================
+   SUBMIT BUTTON
+================================ */
+.btn-submit-review {
+  padding: 12px 28px;
+  background: #28a745;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.btn-submit-review:hover {
+  background: #218838;
+}
+
+/* ================================
+   REVIEW LIST ITEMS
+================================ */
+.review-item {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.review-stars {
+  color: #ffd700;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.review-text {
+  font-size: 14px;
+  color: #333;
+}
