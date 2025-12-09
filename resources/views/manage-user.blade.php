@@ -13,45 +13,7 @@
 
 <body>
     <!-- SIDEBAR -->
-    <div class="sidebar">
-        <div class="logo-section">
-            <img src="{{ asset('assets/images/Department_of_Labor_and_Employment_(DOLE).svg') }}" alt="Logo"
-                class="dashboard-logo" />
-            <div class="portal-title">JOB PORTAL</div>
-            <h4>ADMIN DASHBOARD</h4>
-        </div>
-
-        <!-- Navigation Links -->
-        <a href="{{ url('/dashboard') }}" class="nav-link">
-            <i class="fas fa-chart-line"></i>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="{{ url('/manage-jobs') }}" class="nav-link">
-            <i class="fas fa-briefcase"></i>
-            <span>Manage Jobs</span>
-        </a>
-
-        <a href="{{ url('/manage-applicants') }}" class="nav-link">
-            <i class="fas fa-users"></i>
-            <span>Manage Applicants</span>
-        </a>
-
-        <a href="{{ url('/manage-user') }}" class="nav-link active">
-            <i class="fas fa-user-cog"></i>
-            <span>Manage Users</span>
-        </a>
-
-        <a href="{{ url('/notification') }}" class="nav-link">
-            <i class="fas fa-bell"></i>
-            <span>Notification</span>
-        </a>
-
-        <a href="{{ url('/review') }}" class="nav-link">
-            <i class="fas fa-star"></i>
-            <span>Review & Ratings</span>
-        </a>
-    </div>
+    <x-sidebar />
 
     <!-- MAIN CONTENT -->
     <main class="main-content">
@@ -61,7 +23,6 @@
         </div>
         </div>
 
-        <!-- MAIN HEADER BOX -->
 
         <div class="header-box">
             <div>
@@ -71,43 +32,34 @@
 
 
         <div class="user-list">
-            <!-- USER CARD 1 -->
-            <div class="user-card">
-                <div class="user-info">
-                    <img src="{{ asset('assets/images/498ea3e9-6ed6-4194-a026-7372a08cd507.jpg') }}"
-                        class="user-avatar">
-                    <div>
-                        <strong class="user-name">Juan Dela Cruz</strong>
-                        <p class="user-email">juan@example.com • 09012345678</p>
+            @forelse($allUsers as $user)
+                <div class="user-card">
+                    <div class="user-info">
+                        <img src="{{ $user->image ? asset($user->image) : asset('assets/images/DSCF7140.JPG') }}" alt="{{ $user->name }}"  class="user-avatar">
+                        <div>
+                            <strong class="user-name">{{ $user->name  }}</strong>
+                            <p class="user-email">{{ $user->email }} • {{$user->contact_number }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="job">Baker</div>
-                <span class="status active">Active</span>
-                <p class="date">Oct-06-2025</p>
-                <div class="actions">
-                    <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>
+                    <span class="status active">{{ $user->status }}</span>
+                    <p class="date">{{ $user->created_at->format('M-d-Y') }}</p>
+                    <div class="actions">
+                        <form action="{{ route('updateUserStatus', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            @if($user->status === 'active')
+                                <button type="submit" class="block-btn">Block</button>
+                            @else
+                                <button type="submit" class="unblock-btn">Unblock</button>
+                            @endif
+                        </form>
+                    </div>
 
-            <!-- USER CARD 2 -->
-            <div class="user-card">
-                <div class="user-info">
-                    <img src="{{ asset('assets/images/494356517_720172503782781_666955056287399904_n.jpg') }}"
-                        class="user-avatar">
-                    <div>
-                        <strong class="user-name">Maria Santos</strong>
-                        <p class="user-email">maria@example.com • 09123456789</p>
-                    </div>
+
                 </div>
-                <div class="job">Cashier</div>
-                <span class="status suspended">Suspended</span>
-                <p class="date">Sep-22-2025</p>
-                <div class="actions">
-                    <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>
+            @empty
+                <p class="text-muted">No jobs found.</p>
+            @endforelse
         </div>
     </main>
 </body>

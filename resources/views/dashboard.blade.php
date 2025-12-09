@@ -16,45 +16,7 @@
 <body>
 
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="logo-section">
-            <img src="{{ asset('assets/images/Department_of_Labor_and_Employment_(DOLE).svg') }}" alt="Logo"
-                class="dashboard-logo" />
-            <div class="portal-title">JOB PORTAL</div>
-            <h4>ADMIN DASHBOARD</h4>
-        </div>
-
-        <!-- Navigation Links -->
-        <a href="{{ url('/dashboard') }}" class="nav-link active">
-            <i class="fas fa-chart-line"></i>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="{{ url('/manage-jobs') }}" class="nav-link">
-            <i class="fas fa-briefcase"></i>
-            <span>Manage Jobs</span>
-        </a>
-
-        <a href="{{ url('/manage-applicants') }}" class="nav-link">
-            <i class="fas fa-users"></i>
-            <span>Manage Applicants</span>
-        </a>
-
-        <a href="{{ url('/manage-user') }}" class="nav-link">
-            <i class="fas fa-user-cog"></i>
-            <span>Manage Users</span>
-        </a>
-
-        <a href="{{ url('/notification') }}" class="nav-link">
-            <i class="fas fa-bell"></i>
-            <span>Notification</span>
-        </a>
-
-        <a href="{{ url('/review') }}" class="nav-link">
-            <i class="fas fa-star"></i>
-            <span>Review & Ratings</span>
-        </a>
-    </div>
+    <x-sidebar />
 
     <!-- Main Content -->
     <div class="main-content">
@@ -86,7 +48,6 @@
                         </button>
                     </form>
 
-                    </form>
                 </div>
 
             </div>
@@ -100,23 +61,24 @@
 
             <div class="stat-box stat-jobs">
                 <h4>Jobs Posted</h4>
-                <p class="stat-number">30</p>
+                <p class="stat-number">{{ $jobsCount }}</p>
             </div>
 
             <div class="stat-box stat-applicants">
                 <h4>Applicants</h4>
-                <p class="stat-number">56</p>
+                <p class="stat-number">{{ $applicantsCount }}</p>
             </div>
 
             <div class="stat-box stat-users">
                 <h4>Users</h4>
-                <p class="stat-number">100</p>
+                <p class="stat-number">{{ $usersCount }}</p>
             </div>
 
             <div class="stat-box stat-notifications">
                 <h4>Notification</h4>
-                <p class="stat-number">100</p>
+                <p class="stat-number">{{ $notificationsCount }}</p>
             </div>
+
 
         </div>
 
@@ -132,24 +94,29 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        const jobsCount = {{ $jobsCount }};
+        const applicantsCount = {{ $applicantsCount }};
+        const usersCount = {{ $usersCount }};
+
         const ctx = document.getElementById('jobChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                datasets: [{
+                labels: ['Current Stats'],
+                datasets: [
+                    {
                         label: 'Jobs Posted',
-                        data: [12, 18, 14, 16, 20, 28, 30],
+                        data: [jobsCount],
                         backgroundColor: '#0d47a1'
                     },
                     {
                         label: 'Applicants',
-                        data: [30, 22, 35, 40, 33, 32, 42],
+                        data: [applicantsCount],
                         backgroundColor: '#ffcc00'
                     },
                     {
                         label: 'Users',
-                        data: [18, 20, 22, 26, 28, 30, 31],
+                        data: [usersCount],
                         backgroundColor: '#1565c0'
                     }
                 ]
@@ -157,13 +124,12 @@
             options: {
                 responsive: true,
                 plugins: {
-                    legend: {
-                        position: 'top'
-                    }
+                    legend: { position: 'top' }
                 }
             }
         });
     </script>
+
 
     <script>
         document.addEventListener("click", function(e) {

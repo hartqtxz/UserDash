@@ -10,6 +10,7 @@ body {
 
 .main-content {
     margin-left: 340px;
+    width: 80%;
     /* width of sidebar */
     overflow-y: auto;
     background-color: #E9EEF7;
@@ -84,6 +85,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    width: 95%;
 }
 
 section h2 {
@@ -123,118 +125,124 @@ section h2 {
 }
 
 /* ===================== NOTIFICATION CARDS ===================== */
-.notif-card {
-    background-color: white;
-    padding: 1rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    align-items: center;
-    transition: box-shadow 0.2s;
-}
-
-.notif-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.company {
+.notif-list {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    grid-column: span 4;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.company img {
-    width: 2.5rem;
-    height: 2.5rem;
+/* Notification Card */
+.notif-card-single {
+    display: flex;
+    gap: 1rem;
+    background: #ffffff;
+    padding: 1.25rem;
+    border-radius: 14px;
+    align-items: flex-start;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid transparent;
+    transition: .25s ease;
+}
+
+.notif-card-single:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+}
+
+/* Highlight unread notifications */
+.notif-unread {
+    background: #f0f7ff;
+    border-left-color: #3b82f6;
+}
+
+/* Icon */
+.notif-icon {
+    background: #e5edff;
+    color: #3b82f6;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-}
-
-.company div p:first-child {
-    font-weight: bold;
-    font-size: 0.875rem;
-    margin: 0;
-}
-
-.company div p:last-child {
-    font-size: 0.75rem;
-    color: #6b7280;
-    margin: 0;
-}
-
-.job-notice {
-    font-size: 0.875rem;
-    font-weight: 500;
-    grid-column: span 3;
-}
-
-.applicants {
-    grid-column: span 1;
-    text-align: center;
-    font-weight: 500;
-    color: #2563eb;
-}
-
-.status {
-    grid-column: span 2;
-    text-align: center;
-}
-
-.status-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: white;
-}
-
-.status-new {
-    background-color: #22c55e;
-}
-
-.status-message {
-    background-color: #3b82f6;
-}
-
-.actions {
-    grid-column: span 2;
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    font-size: 18px;
 }
 
-.action-btn {
-    font-size: 0.6875rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem;
+/* Notification text */
+.notif-info h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.notif-message {
+    margin: 6px 0;
+    font-size: .90rem;
+    color: #4b5563;
+}
+
+.notif-time {
+    font-size: .75rem;
+    color: #6b7280;
+}
+
+/* Buttons */
+.notif-actions {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.notif-actions button {
     border: none;
+    padding: .4rem .9rem;
+    font-size: .75rem;
+    border-radius: 6px;
     cursor: pointer;
-    color: white;
-    transition: background-color 0.2s;
+    transition: .2s;
 }
 
-.action-btn.view,
-.action-btn.reply {
+/* Mark as read */
+.notif-actions .mark-read {
     background-color: #3b82f6;
+    color: white;
 }
 
-.action-btn.view:hover,
-.action-btn.reply:hover {
+.notif-actions .mark-read:hover {
     background-color: #2563eb;
 }
 
-.action-btn.delete,
-.action-btn.archive {
+/* Delete */
+.notif-actions .delete {
     background-color: #ef4444;
+    color: white;
 }
 
-.action-btn.delete:hover,
-.action-btn.archive:hover {
+.notif-actions .delete:hover {
     background-color: #dc2626;
 }
 
-hr {
-    border: none;
-    border-top: 1px solid #d1d5db;
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6b7280;
+}
+
+.empty-state img {
+    width: 170px;
+    opacity: .85;
+}
+
+.empty-state h3 {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    color: #1f2937;
+}
+
+.empty-state p {
+    font-size: .90rem;
+    margin-top: .25rem;
 }

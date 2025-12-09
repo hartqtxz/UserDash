@@ -15,147 +15,165 @@
 </head>
 
 <body>
-    <!-- SIDEBAR -->
+<!-- SIDEBAR -->
+<x-sidebar />
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="logo-section">
-            <img src="{{ asset('assets/images/Department_of_Labor_and_Employment_(DOLE).svg') }}" alt="Logo"
-                class="dashboard-logo" />
-            <div class="portal-title">JOB PORTAL</div>
-            <h4>ADMIN DASHBOARD</h4>
-        </div>
+<!-- MAIN CONTENT -->
+<div class="main-content p-4">
+    <h2 class="mb-4">Manage Applicants</h2>
 
-        <!-- Navigation Links -->
-        <a href="{{ url('/dashboard') }}" class="nav-link ">
-            <i class="fas fa-chart-line"></i>
-            <span>Dashboard</span>
-        </a>
+    <!-- APPLICANTS TABLE -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($applicants as $applicant)
+                <tr>
+                    <td>{{ $applicant->id }}</td>
+                    <td>{{ $applicant->full_name }}</td>
+                    <td>{{ $applicant->email }}</td>
+                    <td>
+                        @if($applicant->status == 'approved')
+                            <span class="badge bg-success">Accepted</span>
+                        @elseif($applicant->status == 'declined')
+                            <span class="badge bg-danger">Rejected</span>
+                        @else
+                            <span class="badge bg-secondary">Pending</span>
+                        @endif
+                    </td>
+                    <td>
+                        <!-- VIEW BUTTON -->
+                        <button class="btn btn-sm btn-primary me-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#viewApplicantModal"
+                                onclick='populateApplicantModal(@json($applicant))'>
+                            View
+                        </button>
+                        @if($applicant->status == 'pending')
+                            <form action="{{ route('approveApplicant', $applicant->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-danger">Approve</button>
+                            </form>
+                            <form action="{{ route('rejectApplicant', $applicant->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                            </form>
+                        @endif
 
-        <a href="{{ url('/manage-jobs') }}" class="nav-link">
-            <i class="fas fa-briefcase"></i>
-            <span>Manage Jobs</span>
-        </a>
 
-        <a href="{{ url('/manage-applicants') }}" class="nav-link active">
-            <i class="fas fa-users"></i>
-            <span>Manage Applicants</span>
-        </a>
-
-        <a href="{{ url('/manage-user') }}" class="nav-link">
-            <i class="fas fa-user-cog"></i>
-            <span>Manage Users</span>
-        </a>
-
-        <a href="{{ url('/notification') }}" class="nav-link">
-            <i class="fas fa-bell"></i>
-            <span>Notification</span>
-        </a>
-
-        <a href="{{ url('/review') }}" class="nav-link">
-            <i class="fas fa-star"></i>
-            <span>Review & Ratings</span>
-        </a>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">No applicants found.</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-
-        <!-- STAT CARDS -->
-        <div class=" stat-container text-center mb-4">
-            <div class="col-md-4">
-                <div class="stat-box bg-warning text-dark p-3 rounded">
-                    <h6>Total Applicants</h6>
-                    <h3>10</h3>
-                </div>
+<!-- VIEW APPLICANT MODAL -->
+<div class="modal fade" id="viewApplicantModal" tabindex="-1" aria-labelledby="viewApplicantModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Applicant Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="col-md-4">
-                <div class="stat-box bg-success text-white p-3 rounded">
-                    <h6>Rejected</h6>
-                    <h3>4</h3>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="stat-box bg-primary text-white p-3 rounded">
-                    <h6>Total Jobs</h6>
-                    <h3>7</h3>
-                </div>
-            </div>
-        </div>
-
-        <!-- APPLICANT CARDS -->
-        <div class="row g-4">
-            <!-- Applicant 1 -->
-            <div class="col-md-4">
-                <div class="card applicant-card">
-                    <img src="{{ asset('assets/images/02d21ed0-cdde-4970-bb23-d751da527002.jpg') }}"
-                        class="card-img-top" alt="Applicant">
-                    <div class="card-body text-center">
-                        <button class="btn btn-danger me-2">Reject</button>
-                        <button class="btn btn-success">View Applicant</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Applicant 2 -->
-            <div class="col-md-4">
-                <div class="card applicant-card">
-                    <img src="{{ asset('assets/images/498ea3e9-6ed6-4194-a026-7372a08cd507.jpg') }}"
-                        class="card-img-top" alt="Applicant">
-                    <div class="card-body text-center">
-                        <button class="btn btn-danger me-2">Reject</button>
-                        <button class="btn btn-success">View Applicant</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Applicant 3 -->
-            <div class="col-md-4">
-                <div class="card applicant-card">
-                    <img src="{{ asset('assets/images/494356517_720172503782781_666955056287399904_n.jpg') }} "
-                        class="card-img-top" alt="Applicant">
-                    <div class="card-body text-center">
-                        <button class="btn btn-danger me-2">Reject</button>
-                        <button class="btn btn-success">View Applicant</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Repeat as needed -->
-            <div class="col-md-4">
-                <div class="card applicant-card">
-                    <img src="{{ asset('assets/images/DSCF7140.JPG') }}" class="card-img-top" alt="Applicant">
-                    <div class="card-body text-center">
-                        <button class="btn btn-danger me-2">Reject</button>
-                        <button class="btn btn-success">View Applicant</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card applicant-card">
-                    <img src="{{ asset('assets/images/27928bef-ff63-4a9d-accc-4c02bc3ba18d.jpg') }}"
-                        class="card-img-top" alt="Applicant">
-                    <div class="card-body text-center">
-                        <button class="btn btn-danger me-2">Reject</button>
-                        <button class="btn btn-success">View Applicant</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card applicant-card">
-                    <img src="{{ asset('assets/images/DSCF7140.JPG') }}" class="card-img-top" alt="Applicant">
-                    <div class="card-body text-center">
-                        <button class="btn btn-danger me-2">Reject</button>
-                        <button class="btn btn-success">View Applicant</button>
-                    </div>
-                </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <td id="modalApplicantID"></td>
+                    </tr>
+                    <tr>
+                        <th>Full Name</th>
+                        <td id="modalApplicantName"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td id="modalApplicantEmail"></td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td id="modalApplicantPhone"></td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td id="modalApplicantGender"></td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td id="modalApplicantDOB"></td>
+                    </tr>
+                    <tr>
+                        <th>Home Address</th>
+                        <td id="modalApplicantAddress"></td>
+                    </tr>
+                    <tr>
+                        <th>Position</th>
+                        <td id="modalApplicantPosition"></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td id="modalApplicantStatus"></td>
+                    </tr>
+                    <tr>
+                        <th>Resume</th>
+                        <td><a id="modalApplicantResume" href="#" target="_blank">View Resume</a></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="js/dashboard.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function populateApplicantModal(applicant) {
+        document.getElementById('modalApplicantID').innerText = applicant.id;
+        document.getElementById('modalApplicantName').innerText = applicant.full_name;
+        document.getElementById('modalApplicantEmail').innerText = applicant.email;
+        document.getElementById('modalApplicantPhone').innerText = applicant.phone_number;
+        document.getElementById('modalApplicantGender').innerText = applicant.gender;
+        document.getElementById('modalApplicantDOB').innerText = applicant.date_of_birth;
+        document.getElementById('modalApplicantAddress').innerText = applicant.home_address;
+        document.getElementById('modalApplicantPosition').innerText = applicant.position;
+        document.getElementById('modalApplicantStatus').innerHTML = getStatusBadge(applicant.status);
+
+        // Resume link
+        if(applicant.resume_path) {
+            document.getElementById('modalApplicantResume').href = "{{ url('/') }}/" + applicant.resume_path;
+            document.getElementById('modalApplicantResume').style.display = 'inline';
+        } else {
+            document.getElementById('modalApplicantResume').style.display = 'none';
+        }
+    }
+
+    function getStatusBadge(status) {
+        switch(status) {
+            case 'accepted':
+                return '<span class="badge bg-success">Accepted</span>';
+            case 'rejected':
+                return '<span class="badge bg-danger">Rejected</span>';
+            default:
+                return '<span class="badge bg-secondary">Pending</span>';
+        }
+    }
+</script>
+
 </body>
-
 </html>

@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // ------------------ HOME / INDEX ------------------
 Route::get('/', function () {
@@ -16,80 +17,39 @@ Route::get('/', function () {
 
 // ------------------ TEMP REGISTER & LOGIN (NO DATABASE) ------------------
 
-// Register (GET)
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
 
-// Register (POST) — TEMP ONLY (NO DB SAVE)
-Route::post('/register', function (Request $request) {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email',
-        'phone' => 'required|string|max:20',
-        'password' => 'required|min:6|confirmed',
-    ]);
+Route::get('/register', [AuthController::class, 'viewRegister'])->name('viewRegister');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-    // 🚫 No database yet — so we just redirect
-    return redirect('/login')->with('success', 'Registration successful! (Temporary Only)');
-});
+Route::get('/login', [AuthController::class, 'viewLogin'])->name('viewLogin');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-// Login (GET)
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Login (POST) — TEMP LOGIN (NO AUTH)
-Route::post('/login', function (Request $request) {
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    // ✅ Temporary auto-login
-    return redirect('/dashboard');
-});
-
-// Dashboard (UNPROTECTED FOR NOW)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-// ------------------ OTHER PAGES ------------------
-Route::get('/applicants', function () {
-    return view('applicants');
-});
-
-Route::get('/manage-applicants', function () {
-    return view('manage-applicants');
-});
-
-Route::get('/manage-jobs', function () {
-    return view('manage-jobs');
-})->name('manage.jobs');
+Route::get('/dashboard', [AdminController::class, 'viewDashboard'])->name('dashboard');
 
 
-Route::get('/manage-user', function () {
-    return view('manage-user');
-})->name('manage.user');
+Route::get('/manage-jobs', [JobController::class, 'viewManageJobs'])->name('viewManageJobs');
+Route::get('/post-jobs', [JobController::class, 'viewPostJobs'])->name('viewPostJobs');
+Route::post('/post-jobs', [JobController::class, 'addJob'])->name('postJobs');
+Route::patch('/jobs/{id}/edit', [JobController::class, 'editJob'])->name('editJob');
+Route::delete('/delete-job/{id}', [JobController::class, 'deleteJob'])->name('deleteJob');
 
-Route::get('/notification', function () {
-    return view('notification');
-});
 
-Route::get('/post-job', function () {
-    return view('post job');
-});
+Route::get('/manage-users', [UserController::class, 'viewManageUsers'])->name('viewManageUsers');
+Route::patch('/user/status/{id}', [UserController::class, 'updateUserStatus'])->name('updateUserStatus');
+
+Route::get('/view-manage-applicants', [ApplicantController::class, 'viewManageApplicants'])->name('viewManageApplicants');
+Route::patch('/approve-applicant/{id}', [ApplicantController::class, 'approveApplicant'])->name('approveApplicant');
+Route::patch('/reject-applicant/{id}', [ApplicantController::class, 'rejectApplicant'])->name('rejectApplicant');
+
+Route::get('/notifications', [NotificationController::class, 'viewNotifications'])->name('viewNotifications');
+Route::delete('/notification/delete/{id}', [NotificationController::class, 'deleteNotification'])->name('deleteNotification');
+Route::patch('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('markAsRead');
 
 Route::get('/review', function () {
     return view('review');
 });
-// ------------------ LOGOUT ------------------
-// ------------------ LOGOUT ------------------
-Route::post('/logout', function () {
-    session()->flush();   // Clear session
-    return redirect('/'); // Go to frontpage
-})->name('logout');
 
 
 
